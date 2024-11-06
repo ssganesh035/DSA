@@ -1,0 +1,24 @@
+class Solution {
+    public boolean canSortArray(int[] nums) {
+         int lastMaxValue = Integer.MIN_VALUE;
+        int currentMaxValue = nums[0];
+        int currentMinValue = nums[0];
+        int bitCount = Integer.bitCount(nums[0]);
+
+        for (int i = 1; i < nums.length; i++) {
+            if (bitCount == Integer.bitCount(nums[i])) {
+                currentMaxValue = Math.max(currentMaxValue, nums[i]);
+                currentMinValue = Math.min(currentMinValue, nums[i]);
+            } else {
+                if (currentMinValue < lastMaxValue) {
+                    return false;
+                }
+                lastMaxValue = currentMaxValue;
+                bitCount = Integer.bitCount(nums[i]);
+                currentMinValue = nums[i];
+                currentMaxValue = nums[i];
+            }
+        }
+        return currentMinValue > lastMaxValue;
+    }
+}
